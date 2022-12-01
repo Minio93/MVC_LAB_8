@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewData["Title"] = "Create Person";
+}
+
+<form method="post" asp-controller="Person" asp-action="CreateNewPerson">
+    <div class="form-group">
+        <label for="id">ID</label>
+        <input type="text" class="form-control" id="id" name="id" placeholder="Enter ID">
+    </div>
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
+    </div>
+    <div class="form-group">
+        <label for="city">City</label>
+        <input type="text" class="form-control" id="city" name="city" placeholder="Enter City">
+    </div>
+    <div class="form-group">
+        <label for="gender">Gender</label>
+        <input type="number" class="form-control" id="gender" placeholder="Gender" name="gender" />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
