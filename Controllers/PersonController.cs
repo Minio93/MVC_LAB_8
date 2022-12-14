@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MVC_LAB.Models.Person;
 using MVC_LAB.Services;
 
@@ -24,13 +25,46 @@ namespace MVC_LAB.Controllers
         }
 
         public IActionResult NewPerson(){
-            return View();
+            var model = new CreatePersonViewModel()
+            {
+                Gender = new List<SelectListItem>()
+
+            };
+            foreach (GenderEnum gender in (GenderEnum[])Enum.GetValues(typeof(GenderEnum)))
+            {
+                model.Gender.Add(new SelectListItem() { Text = gender.ToString(), Value = ((int)gender).ToString() });
+            }
+            return View(model);
         }
 
-        public IActionResult CreateNewPerson(int id, string name, string city, GenderEnum gender)
+        public IActionResult CreateNewPerson( string name, string city, GenderEnum gender)
         {
-            _personService.CreatePerson(id, name, city, gender);
+            _personService.CreatePerson(name, city, gender);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult EditPerson(int id)
+        {
+            var person = _personService.GetPerson(id);
+            var model = new EditPersonViewModel()
+            {
+                Gender = new List<SelectListItem>(),
+                ID = id,
+                Name = person.Name,
+                City = person.City
+
+            };
+            foreach (GenderEnum gender in (GenderEnum[])Enum.GetValues(typeof(GenderEnum)))
+            {
+                model.Gender.Add(new SelectListItem() { Text = gender.ToString(), Value = ((int)gender).ToString(), Selected = person.Gender == gender });
+            }
+            return View(model);
+        }
+        public IActionResult EditPersonDetails(long id, string name, string city, GenderEnum gender)
+        {
+            _personService.EditPerson(id, name, city, gender);
             return RedirectToAction("Index");
         }
     }
+   
 }

@@ -23,6 +23,7 @@
                     <th scope="row">@item.Name</th>
                     <th scope="row">@item.City</th>
                     <th scope="row">@item.Gender</th>
+                    <th scope="row"> <a asp-area="" asp-controller="Person" class="btn-dark" asp-action="EditPerson" asp-route-id="@item.ID" role="button">Edytuj</a></th>
                 </tr>
             }
         </tbody>
